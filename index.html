@@ -6,10 +6,9 @@
     <link href="https://fonts.font.im/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>AR工牌</title>
-    
     <script type="text/javascript" src="js/index.js" ></script>
-   
   </head>
+
   <body>
     <div class="top-bar">
       <img src="images/logo.png" alt="My test image" class="logo">
@@ -22,21 +21,22 @@
     </div> 
 
       <div id="firstuse" class="tab">
-        <form  target="info" method="post" action="http://localhost:8083/info" enctype="application/json">
+        <form  target="info" >
           <div class="box-input">
             <text>工号：</text>
             <input type="text" name="code" id="code"> <br>
           </div>
           <div class="box-input">
-            姓名：<input type="text" name="name" id="name"><br>
+            <text>姓名：</text>
+            <input type="text" name="name" id="name"><br>
           </div>
           <div class="box-input">
-            格言：<input type="text" name="motto" id="motto">
+            <text>格言：</text>
+            <input type="text" name="motto" id="motto">
           </div>
           <button class="but" id="send">上传信息</button>
         </form> 
         <iframe name="info"  style="display:none"></iframe>
-       
       </div>
 
       
@@ -52,32 +52,36 @@
 
       <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
       <script>
-         
-  
       $("#send").click(function(){
-        var params = {"code":$("#code").val(),"name":$("#name").val(),"motto":$("#motto").val()}
-      console.log(params)
-          $.ajax({
-              type: "POST",
-              url: "http://localhost:8083/info",
-              contentType: "application/json; charset=utf-8",
-              data: params,
-              dataType : "json",
-              success: function(res){
-                alert("success")
-              },
-              fail:function(res){
-                alert("fail")
-              }
-          })
+        var params = JSON.stringify({
+        "code":$("#code").val(),
+        "name":$("#name").val(),
+        "motto":$("#motto").val()});
+        console.log(params)
+        $.ajax({
+            type: "POST",
+            url: "http://10.112.79.143:8083/info",
+            contentType: "application/json",
+            data: params,
+            dataType : "json",
+            success: function(res){
+              alert("success")
+            },
+            fail:function(res){
+              alert("fail")
+            },
+            error:function(res){
+              alert("error")
+            }
+        });
       });
+
       $("#render").click(function(){
         code=document.getElementById("ID").value;
         $.get("http://10.112.79.143:8083/info/"+code,function(data){
-          alert(data)
+          console.log(data)
         });
       })
     </script>
-
   </body>
 </html>
