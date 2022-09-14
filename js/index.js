@@ -3,7 +3,6 @@
 window.onload=function(){
     tab=document.getElementsByClassName("tab");
     tab[0].style.display="block";
-    
 }
 
 function choosebar(evt,id)
@@ -13,7 +12,6 @@ function choosebar(evt,id)
     tab[id].style.display="block";
     tab[Math.abs(id-1)].style.display="none";
 }
-
 
 
 
